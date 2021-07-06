@@ -94,7 +94,8 @@ void test_encode_1(void)
     size_t              i;
 
 
-    for (i = 0; i < dimof(test_strings); i++)
+//    for (i = 0; i < dimof(test_strings); i++)
+    i = 7;
     {
         memset(out_buffer, 'A', sizeof(out_buffer));
 
@@ -103,6 +104,16 @@ void test_encode_1(void)
         printf("Encoded data:\n");
         print_hex(out_buffer, result.out_len);
         printf("\nLength %zu, Status %02X\n", result.out_len, result.status);
+
+        uint8_t dst_buf[1000];
+        memset(dst_buf, 'A', sizeof(dst_buf));
+        size_t dst_buf_len = sizeof(dst_buf);
+        cobs_decode(dst_buf, dst_buf_len, out_buffer, result.out_len);
+        printf("Decoded data:\n");
+//        printf("\n %02X %02X \n", dst_buf[0], dst_buf[1]);
+        print_hex(dst_buf, result.out_len);
+        fflush(stdout);
+        printf("\n-------------------------------\n");
     }
 }
 
